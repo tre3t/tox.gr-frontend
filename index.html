@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-  <meta name="description" content="tox.gr — Serverless dataless communication">
-  <meta property="og:title" content="tox.gr - Επικοινωνία">
+  <meta name="description" content="tox.cy — Communication">
   <script>(function(){if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');})();</script>
-  <title>tox.gr - Επικοινωνία</title>
+  <title>tox.cy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,12 +13,12 @@
 </head>
 <body>
 
-<!-- AUTH MODAL -->
+<!-- ── AUTH MODAL ── -->
 <div id="auth-overlay" class="overlay hidden">
   <div class="modal-card">
     <button id="close-auth-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    <div class="modal-brand">tox.gr</div>
-    <p class="modal-subtitle">Serverless dataless communication</p>
+    <div class="modal-brand">tox.cy</div>
+    <p class="modal-subtitle">Communication</p>
     <h2 id="auth-title">Σύνδεση</h2>
     <div class="auth-fields">
       <input type="text" id="auth-username" placeholder="Όνομα χρήστη" autocomplete="username">
@@ -32,7 +31,7 @@
   </div>
 </div>
 
-<!-- PROFILE MODAL (own profile) -->
+<!-- ── OWN PROFILE MODAL ── -->
 <div id="profile-modal" class="overlay hidden">
   <div class="modal-card" style="max-width:340px;gap:12px">
     <button id="close-profile-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
@@ -48,7 +47,7 @@
   </div>
 </div>
 
-<!-- USER PROFILE MODAL (other users) -->
+<!-- ── USER PROFILE MODAL ── -->
 <div id="user-profile-modal" class="overlay hidden">
   <div class="modal-card user-profile-card">
     <button id="close-user-profile-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
@@ -64,7 +63,7 @@
   </div>
 </div>
 
-<!-- SETTINGS PANEL -->
+<!-- ── SETTINGS PANEL ── -->
 <div id="settings-panel" class="overlay hidden">
   <div class="settings-card">
     <div class="settings-header">
@@ -74,7 +73,7 @@
     <div class="settings-body">
       <div class="settings-section">
         <div class="settings-section-title">Λογαριασμός</div>
-        <div id="settings-username-row" class="settings-row"><span class="settings-row-label">Όνομα χρήστη</span><span id="settings-username-val" class="settings-row-val"></span></div>
+        <div class="settings-row"><span class="settings-row-label">Όνομα χρήστη</span><span id="settings-username-val" class="settings-row-val"></span></div>
       </div>
       <div class="settings-section">
         <div class="settings-section-title">Εμφάνιση</div>
@@ -86,14 +85,14 @@
       <div class="settings-section">
         <div class="settings-section-title" style="color:var(--danger)">Επικίνδυνη Ζώνη</div>
         <button id="delete-account-btn" class="btn-danger-full">🗑 Διαγραφή λογαριασμού</button>
-        <p class="settings-danger-note">Αυτή η ενέργεια είναι μη αναστρέψιμη. Όλα τα δεδομένα σας θα διαγραφούν.</p>
+        <p class="settings-danger-note">Αυτή η ενέργεια είναι μη αναστρέψιμη.</p>
       </div>
     </div>
-    <div class="settings-footer">Για οποιοδήποτε πρόβλημα επικοινωνήστε <a href="mailto:info@tox.gr">info@tox.gr</a></div>
+    <div class="settings-footer">Επικοινωνήστε <a href="mailto:info@tox.cy">info@tox.cy</a></div>
   </div>
 </div>
 
-<!-- HISTORY PANEL -->
+<!-- ── HISTORY PANEL ── -->
 <div id="history-panel" class="overlay hidden">
   <div class="settings-card">
     <div class="settings-header">
@@ -101,11 +100,11 @@
       <button id="close-history-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
     </div>
     <div id="history-list" class="history-list"></div>
-    <p id="history-empty" class="feed-empty-sub" style="text-align:center;padding:24px">Δεν υπάρχουν συνομιλίες ακόμα.</p>
+    <p id="history-empty" class="empty-note">Δεν υπάρχουν συνομιλίες ακόμα.</p>
   </div>
 </div>
 
-<!-- GIF PICKER -->
+<!-- ── GIF PICKER ── -->
 <div id="gif-picker-overlay" class="overlay hidden">
   <div class="gif-picker-card">
     <div class="gif-picker-header">
@@ -118,17 +117,17 @@
   </div>
 </div>
 
-<!-- LIGHTBOX -->
+<!-- ── LIGHTBOX ── -->
 <div id="lightbox" class="lightbox hidden">
   <button id="lightbox-close" class="lightbox-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   <img id="lightbox-img" src="" alt="">
 </div>
 
-<!-- CREATE GROUP MODAL -->
+<!-- ── CREATE GROUP MODAL ── -->
 <div id="group-modal-overlay" class="overlay hidden">
   <div class="modal-card" style="max-width:380px;gap:12px">
     <button id="close-group-modal-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
-    <h2 style="text-align:center;font-size:17px">Νέα Ομάδα</h2>
+    <h2 style="font-size:17px">Νέα Ομάδα</h2>
     <input type="text" id="group-name-input" placeholder="Όνομα ομάδας..." maxlength="40" class="auth-field-input">
     <div id="group-members-list" class="group-members-list"></div>
     <p style="font-size:12px;color:var(--text-subtle)">Επιλέξτε φίλους να προσθέσετε</p>
@@ -137,48 +136,65 @@
   </div>
 </div>
 
-<!-- MOBILE TOP BAR -->
+<!-- ── CREATE THREAD MODAL ── -->
+<div id="create-thread-modal" class="overlay hidden">
+  <div class="modal-card" style="max-width:500px;gap:14px">
+    <button id="close-thread-modal-btn" class="modal-close-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <h2>Νέο Νήμα</h2>
+    <select id="thread-cat-select" class="thread-cat-select">
+      <option value="">Επιλέξτε κατηγορία...</option>
+      <option value="Vibes">🎵 Vibes</option>
+      <option value="Διατροφή">🥗 Διατροφή</option>
+      <option value="Τεχνολογία">💻 Τεχνολογία</option>
+      <option value="Γυμναστική">💪 Γυμναστική</option>
+      <option value="Αγγελίες">📢 Αγγελίες</option>
+    </select>
+    <input type="text" id="thread-title-input" class="auth-field-input" placeholder="Τίτλος νήματος..." maxlength="200">
+    <textarea id="thread-content-input" class="post-textarea" placeholder="Περιεχόμενο (προαιρετικό)..." rows="5"></textarea>
+    <button id="publish-thread-btn" class="publish-btn" style="width:100%">Δημοσίευση</button>
+    <p id="thread-modal-err" class="auth-error hidden"></p>
+  </div>
+</div>
+
+<!-- ── MOBILE TOP BAR ── -->
 <div class="mobile-topbar" id="mobile-topbar">
-  <div class="mobile-topbar-brand">tox.gr</div>
+  <div class="mobile-topbar-brand">tox.cy</div>
   <button class="mobile-topbar-menu" id="mob-menu-btn">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="12" cy="19" r="1.2" fill="currentColor"/></svg>
   </button>
 </div>
 
-<!-- MOBILE DROPDOWN -->
-<!-- FIX: was class="mob-menu-item", now matches CSS ".mob-menu-item" (was ".mobile-menu-item" in CSS - both fixed to mob-menu-item) -->
+<!-- ── MOBILE DROPDOWN ── -->
 <div class="mob-dropdown hidden" id="mob-dropdown">
   <button class="mob-menu-item" id="mob-history-btn">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Ιστορικό ΗΡΑ
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Ιστορικό ΗΡΑ
   </button>
   <button class="mob-menu-item" id="mob-profile-btn">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Προφίλ
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Προφίλ
   </button>
   <button class="mob-menu-item" id="mob-settings-btn">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Ρυθμίσεις
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Ρυθμίσεις
   </button>
   <button class="mob-menu-item" id="mob-theme-btn">
     <span id="mob-theme-icon">🌙</span>Θέμα
   </button>
   <div class="mob-menu-divider"></div>
   <button class="mob-menu-item" id="mob-auth-btn">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
     <span id="mob-auth-label">Σύνδεση</span>
   </button>
 </div>
 <div class="mob-overlay hidden" id="mob-overlay"></div>
 
-<!-- APP LAYOUT -->
+<!-- ── APP LAYOUT ── -->
 <div class="app-layout">
 
-  <!-- SIDEBAR (desktop only) -->
-  <aside class="sidebar" id="sidebar">
+  <!-- SIDEBAR (desktop) -->
+  <aside class="sidebar">
     <div class="sidebar-top">
-
       <div class="sidebar-brand-row">
-        <span class="sidebar-brand">tox.gr</span>
+        <span class="sidebar-brand">tox.cy</span>
       </div>
-
       <div id="account-badge" class="account-badge hidden">
         <div id="sidebar-avatar" class="account-avatar clickable-avatar"></div>
         <span id="user-display" class="account-name"></span>
@@ -190,8 +206,7 @@
         <span class="guest-label">Επισκέπτης</span>
         <button id="open-auth-btn" class="signin-pill">Σύνδεση</button>
       </div>
-
-      <div class="sidebar-hera-section" id="sidebar-hera-btn" title="ΗΡΑ AI Chat">
+      <div class="sidebar-hera-section" id="sidebar-hera-btn">
         <div class="sidebar-hera-orb">Η</div>
         <div class="sidebar-hera-info">
           <span class="sidebar-hera-name">ΗΡΑ</span>
@@ -202,12 +217,10 @@
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
         Νέα Συνομιλία
       </button>
-
       <div id="sessions-list" class="sessions-list">
-        <p id="sessions-guest-note" class="sessions-note">Συνδεθείτε για να αποθηκεύεται το ιστορικό σας.</p>
+        <p id="sessions-guest-note" class="sessions-note">Συνδεθείτε για να αποθηκεύεται το ιστορικό.</p>
       </div>
     </div>
-
     <div class="sidebar-footer-area">
       <button id="theme-toggle-btn" class="theme-btn">
         <span id="theme-icon">🌙</span>
@@ -217,58 +230,54 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="chat-main" id="chat-main">
+  <!-- MAIN -->
+  <main class="chat-main">
 
-    <!-- Desktop tab nav -->
+    <!-- Desktop tab bar -->
     <div class="main-tabs" id="main-tabs">
       <button class="tab-btn active" data-tab="feed">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Ροή
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Ροή
       </button>
       <button class="tab-btn" data-tab="chat">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12h8M12 8v8"/></svg>ΗΡΑ
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12h8M12 8v8"/></svg>ΗΡΑ
       </button>
       <button class="tab-btn" data-tab="messages">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Μηνύματα
-        <span class="tab-badge hidden" id="msg-tab-badge">0</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Μηνύματα
       </button>
-      <button class="tab-btn" data-tab="groups">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Ομάδες
-        <span class="tab-badge hidden" id="grp-tab-badge">0</span>
+      <button class="tab-btn" data-tab="threads">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h8M8 14h5"/></svg>Νήματα
       </button>
       <button id="settings-gear-btn" class="gear-btn" title="Ρυθμίσεις">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
     </div>
 
-    <!-- ΡΟΉ TAB -->
+    <!-- ── ΡΟΉ ── -->
     <div id="feed-section" class="tab-section">
       <div class="feed-scroll-area">
         <div class="create-post-card" id="create-post-card" style="display:none">
           <div class="create-post-header">
             <div id="create-post-avatar" class="post-avatar"></div>
             <select id="post-type-select" class="post-type-select">
-              <option value="public">🌍 Δημόσιο</option>
-              <option value="friends">👥 Φίλοι</option>
+              <option value="public">🌍 Δημόσιο (3/ημέρα)</option>
+              <option value="friends">👥 Φίλοι (10/ημέρα)</option>
             </select>
           </div>
           <textarea id="post-text-input" class="post-textarea" placeholder="Τι σκέφτεστε;" rows="2"></textarea>
-          <!-- FIX: post media preview now uses position:relative so the clear btn can position correctly -->
-          <div id="post-media-preview" class="post-media-preview hidden" style="position:relative">
+          <div id="post-media-preview" class="post-media-preview hidden">
             <img id="post-media-img" src="" alt="">
             <button id="clear-post-media-btn" class="clear-media-btn">✕</button>
           </div>
-          <!-- FIX: post gif preview, same pattern -->
-          <div id="post-gif-preview" class="post-media-preview hidden" style="position:relative">
+          <div id="post-gif-preview" class="post-media-preview hidden">
             <img id="post-gif-img" src="" alt="GIF">
             <button id="clear-post-gif" class="clear-media-btn">✕</button>
           </div>
           <div class="create-post-footer">
-            <label class="media-icon-btn" title="Εικόνα/Βίντεο">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            <label class="media-icon-btn" title="Εικόνα">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
               <input type="file" id="post-media-input" accept="image/*,video/*" hidden>
             </label>
-            <button class="media-icon-btn gif-btn" id="post-gif-btn" title="GIF">GIF</button>
+            <button class="gif-icon-btn" id="post-gif-btn">GIF</button>
             <div class="post-limit-info" id="post-limit-info"></div>
             <button id="publish-btn" class="publish-btn">Δημοσίευση</button>
           </div>
@@ -276,9 +285,7 @@
         <div id="feed-guest-notice" class="feed-notice">
           💾 <span class="auth-link-inline" id="feed-auth-link">Συνδεθείτε</span> και μιλήστε με τους φίλους σας
         </div>
-        <div id="feed-loading" class="feed-loading hidden">
-          <div class="loading-spinner"></div>
-        </div>
+        <div id="feed-loading" class="feed-loading hidden"><div class="loading-spinner"></div></div>
         <div id="posts-container"></div>
         <div id="feed-empty" class="feed-empty hidden">
           <div class="feed-empty-icon">📭</div>
@@ -289,7 +296,7 @@
       </div>
     </div>
 
-    <!-- ΗΡΑ TAB -->
+    <!-- ── ΗΡΑ ── -->
     <div id="chat-section" class="tab-section hidden">
       <div id="greeting" class="greeting">
         <div class="greeting-orb">Η</div>
@@ -297,13 +304,17 @@
         <p class="greeting-sub">Ρωτήστε οτιδήποτε — μπορώ να διαβάσω κείμενο και εικόνες.</p>
       </div>
       <div id="chat-logs" class="chat-logs hidden"></div>
-      <div class="input-zone" id="input-zone">
+      <div class="input-zone">
         <div class="input-wrap">
           <div class="input-bar">
-            <label for="file-input" class="attach-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg></label>
+            <label for="file-input" class="attach-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+            </label>
             <input type="file" id="file-input" accept="image/*,.pdf" hidden>
             <input type="text" id="user-input" placeholder="Πληκτρολογήστε ένα μήνυμα..." autocomplete="off" lang="el">
-            <button id="send-action-btn" onmousedown="event.preventDefault()"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            <button id="send-action-btn" onmousedown="event.preventDefault()">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
           </div>
           <div id="file-preview" class="file-preview hidden">
             <span id="attached-filename"></span>
@@ -314,95 +325,159 @@
       </div>
     </div>
 
-    <!-- ΜΗΝΥΜΑΤΑ TAB -->
+    <!-- ── ΜΗΝΥΜΑΤΑ (DMs + Groups merged) ── -->
     <div id="messages-section" class="tab-section hidden">
-      <div id="msg-friends-view" class="msg-inner">
-        <div class="msg-toolbar">
-          <input type="text" id="friend-search-input" class="friend-search-input" placeholder="🔍 Αναζήτηση...">
-          <button id="add-friend-fab" class="add-fab" title="Προσθήκη φίλου">+</button>
-        </div>
-        <div id="add-friend-row" class="add-friend-row hidden">
-          <input type="text" id="friend-username-input" placeholder="Όνομα χρήστη..." class="auth-field-input">
-          <button id="send-friend-request-btn" class="publish-btn" style="white-space:nowrap">Αίτημα</button>
-          <p id="im-status-msg" class="auth-error hidden"></p>
-        </div>
-        <div id="friends-list" class="friends-list"></div>
+
+      <!-- Sub-tab switcher -->
+      <div class="msg-sub-tabs">
+        <button class="msg-sub-tab active" data-msub="people">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+          Άτομα
+        </button>
+        <button class="msg-sub-tab" data-msub="groups">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Ομάδες
+        </button>
       </div>
-      <div id="msg-dm-view" class="msg-inner hidden">
-        <div class="dm-header">
-          <button id="back-to-friends-btn" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
-          <div id="dm-peer-avatar" class="dm-peer-avatar"></div>
-          <span id="dm-friend-name" class="dm-peer-name"></span>
-          <label class="ai-toggle" title="ΗΡΑ auto-reply"><input type="checkbox" id="ai-reply-toggle"><span class="toggle-label">AI</span></label>
+
+      <!-- People pane -->
+      <div id="msg-people-pane" class="msg-sub-pane">
+        <div id="msg-friends-view" class="msg-inner">
+          <div class="msg-toolbar">
+            <input type="text" id="friend-search-input" class="friend-search-input" placeholder="🔍 Αναζήτηση...">
+            <button id="add-friend-fab" class="add-fab" title="Προσθήκη φίλου">+</button>
+          </div>
+          <div id="add-friend-row" class="add-friend-row hidden">
+            <input type="text" id="friend-username-input" placeholder="Όνομα χρήστη..." class="auth-field-input">
+            <button id="send-friend-request-btn" class="publish-btn" style="white-space:nowrap">Αίτημα</button>
+            <p id="im-status-msg" class="auth-error hidden"></p>
+          </div>
+          <div id="friends-list" class="friends-list"></div>
         </div>
-        <div id="dm-messages" class="dm-messages">
-          <!-- FIX: was id="dm-empty" class="dm-empty-state" — JS looks for .dm-empty, now aligned -->
-          <div class="dm-empty">📮<br><span>Στείλτε κάτι</span></div>
-        </div>
-        <!-- FIX: DM gif preview div now exists in HTML (was dynamically injected, causing lookup failures) -->
-        <div id="dm-gif-preview" class="pending-gif-preview hidden"></div>
-        <div class="dm-input-bar">
-          <button class="gif-icon-btn" id="dm-gif-btn" title="GIF" onmousedown="event.preventDefault()">GIF</button>
-          <input type="text" id="dm-input" placeholder="Μήνυμα..." lang="el">
-          <button id="dm-send-btn" onmousedown="event.preventDefault()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        <div id="msg-dm-view" class="msg-inner hidden">
+          <div class="dm-header" id="dm-header">
+            <button id="back-to-friends-btn" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+            <div id="dm-peer-avatar" class="dm-peer-avatar"></div>
+            <span id="dm-friend-name" class="dm-peer-name"></span>
+            <label class="ai-toggle" title="ΗΡΑ auto-reply">
+              <input type="checkbox" id="ai-reply-toggle">
+              <span class="toggle-label">AI</span>
+            </label>
+          </div>
+          <div id="dm-messages" class="dm-messages"></div>
+          <div id="dm-gif-preview" class="pending-gif-preview hidden"></div>
+          <div class="dm-input-bar">
+            <button class="gif-icon-btn" id="dm-gif-btn" onmousedown="event.preventDefault()">GIF</button>
+            <input type="text" id="dm-input" placeholder="Μήνυμα..." lang="el">
+            <button id="dm-send-btn" onmousedown="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
         </div>
       </div>
+
+      <!-- Groups pane -->
+      <div id="msg-groups-pane" class="msg-sub-pane hidden">
+        <div id="grp-list-view" class="msg-inner">
+          <div class="msg-toolbar">
+            <span class="toolbar-title">Ομάδες</span>
+            <button id="new-group-btn" class="add-fab" title="Νέα ομάδα">+</button>
+          </div>
+          <div id="groups-list" class="friends-list"></div>
+          <div id="groups-empty" class="feed-empty hidden">
+            <div class="feed-empty-icon">👥</div>
+            <p>Δεν υπάρχουν ομάδες.</p>
+            <p class="feed-empty-sub">Πατήστε + για να δημιουργήσετε.</p>
+          </div>
+        </div>
+        <div id="grp-chat-view" class="msg-inner hidden">
+          <div class="dm-header">
+            <button id="back-to-groups-btn" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+            <div class="dm-peer-avatar grp-color">G</div>
+            <span id="grp-chat-name" class="dm-peer-name"></span>
+            <button id="delete-group-btn" class="delete-group-btn" title="Διαγραφή">🗑</button>
+          </div>
+          <div id="grp-messages" class="dm-messages"></div>
+          <div id="grp-gif-preview" class="pending-gif-preview hidden"></div>
+          <div class="dm-input-bar">
+            <button class="gif-icon-btn" id="grp-gif-btn" onmousedown="event.preventDefault()">GIF</button>
+            <input type="text" id="grp-input" placeholder="Μήνυμα στην ομάδα..." lang="el">
+            <button id="grp-send-btn" onmousedown="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- ΟΜΑΔΕΣ TAB -->
-    <div id="groups-section" class="tab-section hidden">
-      <div id="grp-list-view" class="msg-inner">
-        <div class="msg-toolbar">
-          <span class="toolbar-title">Ομάδες</span>
-          <button id="new-group-btn" class="add-fab" title="Νέα ομάδα">+</button>
+    <!-- ── ΝΗΜΑΤΑ ── -->
+    <div id="threads-section" class="tab-section hidden">
+
+      <!-- Thread list view -->
+      <div id="thread-list-view" class="msg-inner">
+        <div class="thread-search-bar">
+          <input type="text" id="thread-search" placeholder="🔍 Αναζήτηση νημάτων...">
         </div>
-        <div id="groups-list" class="friends-list"></div>
-        <div id="groups-empty" class="feed-empty hidden">
-          <div class="feed-empty-icon">👥</div>
-          <p>Δεν υπάρχουν ομάδες ακόμα.</p>
-          <p class="feed-empty-sub">Πατήστε + για να δημιουργήσετε μία.</p>
+        <div class="cat-chips" id="cat-chips">
+          <button class="cat-chip active" data-cat="">Όλα</button>
+          <button class="cat-chip" data-cat="Vibes" data-cat-id="vibes">🎵 Vibes</button>
+          <button class="cat-chip" data-cat="Διατροφή" data-cat-id="diatrofi">🥗 Διατροφή</button>
+          <button class="cat-chip" data-cat="Τεχνολογία" data-cat-id="tech">💻 Τεχνολογία</button>
+          <button class="cat-chip" data-cat="Γυμναστική" data-cat-id="gym">💪 Γυμναστική</button>
+          <button class="cat-chip" data-cat="Αγγελίες" data-cat-id="aggelies">📢 Αγγελίες</button>
         </div>
+        <div id="threads-loading" class="feed-loading hidden"><div class="loading-spinner"></div></div>
+        <div id="threads-container"></div>
+        <div id="threads-empty" class="feed-empty hidden">
+          <div class="feed-empty-icon">💬</div>
+          <p>Δεν υπάρχουν νήματα.</p>
+          <p class="feed-empty-sub">Ξεκινήστε τη συζήτηση!</p>
+        </div>
+        <button id="create-thread-fab" class="create-thread-fab" title="Νέο νήμα">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
       </div>
-      <div id="grp-chat-view" class="msg-inner hidden">
+
+      <!-- Thread detail view -->
+      <div id="thread-detail-view" class="msg-inner hidden">
         <div class="dm-header">
-          <button id="back-to-groups-btn" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
-          <div class="dm-peer-avatar grp-color">G</div>
-          <span id="grp-chat-name" class="dm-peer-name"></span>
-          <span id="grp-members-count" class="grp-members-count"></span>
-          <button id="delete-group-btn" class="delete-group-btn" title="Διαγραφή ομάδας">🗑</button>
+          <button id="back-to-threads-btn" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></button>
+          <span id="thread-detail-cat-badge" class="cat-badge-header"></span>
+          <span id="thread-detail-title-header" class="dm-peer-name"></span>
         </div>
-        <div id="grp-messages" class="dm-messages">
-          <div class="dm-empty">📮<br><span>Στείλτε κάτι</span></div>
+        <div id="thread-detail-scroll" class="thread-detail-scroll">
+          <div id="thread-post-card" class="thread-post-card"></div>
+          <div id="thread-replies-header" class="thread-replies-header"></div>
+          <div id="thread-replies-list" class="thread-replies-list"></div>
         </div>
-        <!-- FIX: Group gif preview div now exists in HTML -->
-        <div id="grp-gif-preview" class="pending-gif-preview hidden"></div>
-        <div class="dm-input-bar">
-          <button class="gif-icon-btn" id="grp-gif-btn" title="GIF" onmousedown="event.preventDefault()">GIF</button>
-          <input type="text" id="grp-input" placeholder="Μήνυμα στην ομάδα..." lang="el">
-          <button id="grp-send-btn" onmousedown="event.preventDefault()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        <div class="dm-input-bar" id="thread-reply-bar">
+          <input type="text" id="thread-reply-input" placeholder="Γράψτε απάντηση..." lang="el">
+          <button id="thread-reply-btn" onmousedown="event.preventDefault()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
         </div>
       </div>
+
     </div>
 
-    <!-- MOBILE BOTTOM NAV -->
+    <!-- ── MOBILE BOTTOM NAV ── -->
     <nav class="btm-tab-bar">
       <button class="btm-tab active" data-tab="feed">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         <span>Ροή</span>
       </button>
       <button class="btm-tab" data-tab="chat">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12h8M12 8v8"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M8 12h8M12 8v8"/></svg>
         <span>ΗΡΑ</span>
       </button>
-      <!-- FIX: was class=".btm-tab" (invalid dot), now class="btm-tab" -->
       <button class="btm-tab" data-tab="messages">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         <span>Μηνύματα</span>
-        <span class="btm-badge hidden" id="btm-msg-badge">0</span>
       </button>
-      <button class="btm-tab" data-tab="groups">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        <span>Ομάδες</span>
+      <button class="btm-tab" data-tab="threads">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h8M8 14h5"/></svg>
+        <span>Νήματα</span>
       </button>
     </nav>
 
