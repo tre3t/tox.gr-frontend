@@ -579,10 +579,11 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
 }
 
 /* ── NOTIFICATIONS ─────────────────────────────────────────── */
-.mobile-topbar-right {
+.tab-bar-right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  margin-left: auto;
 }
 
 .notif-bell-btn {
@@ -618,9 +619,26 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   pointer-events: none;
 }
 
+/* Badge inside dropdown menu item (mobile) */
+.notif-badge-inline {
+  position: static;
+  margin-left: auto;
+  background: var(--danger);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
 .notif-dropdown {
   position: fixed;
-  top: 52px;
+  top: 48px;
   right: 8px;
   width: 320px;
   max-width: calc(100vw - 16px);
@@ -630,6 +648,14 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
   z-index: 1200;
   overflow: hidden;
+}
+
+/* On desktop the tab bar is inside .chat-main, offset accordingly */
+@media (min-width: 640px) {
+  .notif-dropdown {
+    top: 52px;
+    right: 16px;
+  }
 }
 
 .notif-dropdown-header {
