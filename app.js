@@ -55,6 +55,10 @@ let msgSubTab       = 'people';
 // Threads state
 let currentThread     = null;
 let currentThreadCat  = '';
+// Notifications state
+let notifPoll         = null;
+let unreadCount       = 0;
+let notifDropdownOpen = false;
 
 // ── PROFILE PICS ─────────────────────────────────────────────
 const PP = {
@@ -194,6 +198,25 @@ function wireListeners() {
   el('thread-reply-btn')?.addEventListener('mousedown', e => e.preventDefault());
   el('thread-reply-btn')?.addEventListener('click', sendThreadReply);
   el('thread-reply-input')?.addEventListener('keydown', e => { if(e.key==='Enter') sendThreadReply(); });
+
+  // Notifications
+  el('notif-bell-btn')?.addEventListener('click', toggleNotifDropdown);
+  el('notif-mark-all-btn')?.addEventListener('click', markAllNotifsRead);
+  document.addEventListener('click', e => {
+    if (notifDropdownOpen && !e.target.closest('#notif-bell-btn') && !e.target.closest('#notif-dropdown')) {
+      closeNotifDropdown();
+    }
+  });
+  // Pause polling when tab is hidden, resume when visible
+  document.addEventListener('visibilitychange', () => {
+    if (!loggedIn()) return;
+    if (document.hidden) {
+      stopNotifPoll();
+    } else {
+      fetchNotifications();
+      startNotifPoll();
+    }
+  });
 }
 
 function debounce(fn, ms) {
@@ -245,6 +268,7 @@ async function submitAuth() {
       loadSessions();
       loadFeed();
       heartbeat();
+      startNotifPoll(); // ← start notifications on login
     } else {
       showAuthError('Ο λογαριασμός δημιουργήθηκε! Συνδεθείτε.', true);
       authMode = 'login';
@@ -270,6 +294,7 @@ function applyLoggedIn(uname) {
   refreshSidebarAvatar();
   loadFriends();
   updateLimitInfo();
+  startNotifPoll(); // ← start notifications when already logged in on page load
 }
 
 function applyGuest() {
@@ -285,8 +310,11 @@ function logout() {
   localStorage.removeItem('tox_token');
   localStorage.removeItem('tox_user');
   anonHistory = [];
-  stopDmPoll(); stopGrpPoll(); stopOnlinePoll();
+  stopDmPoll(); stopGrpPoll(); stopOnlinePoll(); stopNotifPoll(); // ← stop notif poll on logout
   allFriends = [];
+  unreadCount = 0;
+  updateNotifBadge(0);
+  closeNotifDropdown();
   applyGuest();
   el('chat-logs')?.replaceChildren();
   el('chat-logs')?.classList.add('hidden');
@@ -310,7 +338,6 @@ function updateTheme(t) {
 }
 
 // ── TABS ─────────────────────────────────────────────────────
-// groups removed — now lives inside messages sub-tab
 const TAB_SECTIONS = { feed:'feed-section', chat:'chat-section', messages:'messages-section', threads:'threads-section' };
 
 function switchTab(tab) {
@@ -817,6 +844,176 @@ function startOnlinePoll() { stopOnlinePoll(); fetchOnlineUsers(); onlinePoll=se
 function stopOnlinePoll() { if(onlinePoll){ clearInterval(onlinePoll); onlinePoll=null; } }
 
 // ══════════════════════════════════════════════════════════════
+// ── NOTIFICATIONS ─────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+
+// Greek notification messages per type
+const NOTIF_MSG = {
+  friend_request: u => `Ο ${u} σου έστειλε αίτημα φιλίας`,
+  dm:             u => `Νέο μήνυμα από τον ${u}`,
+  post_like:      u => `Ο ${u} άρεσε την ανάρτησή σου`,
+  post_comment:   u => `Ο ${u} σχολίασε την ανάρτησή σου`,
+  thread_like:    u => `Ο ${u} άρεσε το νήμα σου`,
+  thread_reply:   u => `Ο ${u} απάντησε στο νήμα σου`,
+  reply_like:     u => `Ο ${u} άρεσε την απάντησή σου`,
+  reputation:     u => `Ο ${u} σου έδωσε ⭐ υπόληψη`,
+};
+
+const NOTIF_ICON = {
+  friend_request: '👤',
+  dm:             '💬',
+  post_like:      '❤️',
+  post_comment:   '💭',
+  thread_like:    '❤️',
+  thread_reply:   '💬',
+  reply_like:     '❤️',
+  reputation:     '⭐',
+};
+
+async function fetchNotifications() {
+  if (!loggedIn()) return;
+  try {
+    const res = await fetch(url('/api/notifications'), { headers: jsonHeaders() });
+    if (!res.ok) return;
+    const { notifications } = await res.json();
+    const unread = (notifications || []).filter(n => !n.read).length;
+    if (unread !== unreadCount) {
+      unreadCount = unread;
+      updateNotifBadge(unread);
+    }
+    // Re-render dropdown if it's open
+    if (notifDropdownOpen) renderNotifList(notifications || []);
+  } catch {}
+}
+
+function updateNotifBadge(count) {
+  // Update both mobile bell and desktop bell
+  ['notif-badge', 'notif-badge-mob'].forEach(id => {
+    const badge = el(id);
+    if (!badge) return;
+    if (count > 0) {
+      badge.textContent = count > 99 ? '99+' : count;
+      badge.classList.remove('hidden');
+    } else {
+      badge.classList.add('hidden');
+    }
+  });
+}
+
+function toggleNotifDropdown() {
+  if (notifDropdownOpen) { closeNotifDropdown(); return; }
+  notifDropdownOpen = true;
+  const dropdown = el('notif-dropdown');
+  if (dropdown) dropdown.classList.remove('hidden');
+  // Fetch fresh and render immediately
+  fetchAndRenderNotifs();
+}
+
+function closeNotifDropdown() {
+  notifDropdownOpen = false;
+  el('notif-dropdown')?.classList.add('hidden');
+}
+
+async function fetchAndRenderNotifs() {
+  if (!loggedIn()) return;
+  const list = el('notif-list');
+  if (list) list.innerHTML = '<div class="notif-loading">Φόρτωση...</div>';
+  try {
+    const res = await fetch(url('/api/notifications'), { headers: jsonHeaders() });
+    const { notifications } = await res.json();
+    const unread = (notifications || []).filter(n => !n.read).length;
+    unreadCount = unread;
+    updateNotifBadge(unread);
+    renderNotifList(notifications || []);
+  } catch {
+    const list = el('notif-list');
+    if (list) list.innerHTML = '<div class="notif-empty">Αδυναμία φόρτωσης.</div>';
+  }
+}
+
+function renderNotifList(notifications) {
+  const list = el('notif-list');
+  if (!list) return;
+  if (!notifications.length) {
+    list.innerHTML = '<div class="notif-empty">Δεν έχεις ειδοποιήσεις.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  notifications.forEach(n => {
+    const item = document.createElement('div');
+    item.className = `notif-item${n.read ? '' : ' notif-unread'}`;
+    item.dataset.id = n.id;
+    const icon = NOTIF_ICON[n.type] || '🔔';
+    const msg  = NOTIF_MSG[n.type]?.(n.from_user) || n.message || 'Νέα ειδοποίηση';
+    item.innerHTML = `
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <div class="notif-msg">${esc(msg)}</div>
+        <div class="notif-time">${timeAgo(new Date(n.created_at).getTime())}</div>
+      </div>
+      ${!n.read ? '<div class="notif-dot"></div>' : ''}
+    `;
+    item.addEventListener('click', () => handleNotifClick(n));
+    list.appendChild(item);
+  });
+}
+
+async function handleNotifClick(notif) {
+  // Mark as read
+  if (!notif.read) {
+    try {
+      await fetch(url(`/api/notifications/${notif.id}/read`), { method:'POST', headers:jsonHeaders() });
+      notif.read = true;
+      unreadCount = Math.max(0, unreadCount - 1);
+      updateNotifBadge(unreadCount);
+      const item = el('notif-list')?.querySelector(`[data-id="${notif.id}"]`);
+      if (item) { item.classList.remove('notif-unread'); item.querySelector('.notif-dot')?.remove(); }
+    } catch {}
+  }
+  closeNotifDropdown();
+  // Navigate to relevant content
+  if (notif.type === 'friend_request') {
+    switchTab('messages'); switchMsgSubTab('people');
+  } else if (notif.type === 'dm') {
+    switchTab('messages'); switchMsgSubTab('people');
+  } else if (notif.type === 'post_like' || notif.type === 'post_comment') {
+    switchTab('feed');
+  } else if (notif.type === 'thread_like' || notif.type === 'thread_reply' || notif.type === 'reply_like') {
+    switchTab('threads');
+    if (notif.ref_id) {
+      // Open the specific thread
+      try {
+        const res = await fetch(url(`/api/threads/${notif.ref_id}`), { headers: authHeader() });
+        if (res.ok) { const { thread, replies } = await res.json(); openThread(thread); renderThreadDetail(thread, replies); }
+      } catch {}
+    }
+  }
+}
+
+async function markAllNotifsRead() {
+  try {
+    await fetch(url('/api/notifications/read-all'), { method:'POST', headers:jsonHeaders() });
+    unreadCount = 0;
+    updateNotifBadge(0);
+    // Update all items in the open dropdown visually
+    el('notif-list')?.querySelectorAll('.notif-item').forEach(item => {
+      item.classList.remove('notif-unread');
+      item.querySelector('.notif-dot')?.remove();
+    });
+  } catch {}
+}
+
+function startNotifPoll() {
+  stopNotifPoll();
+  fetchNotifications(); // immediate first fetch
+  notifPoll = setInterval(fetchNotifications, 30000);
+}
+
+function stopNotifPoll() {
+  if (notifPoll) { clearInterval(notifPoll); notifPoll = null; }
+}
+
+// ══════════════════════════════════════════════════════════════
 // ── ΝΗΜΑΤΑ (THREADS FORUM) ───────────────────────────────────
 // ══════════════════════════════════════════════════════════════
 
@@ -889,15 +1086,12 @@ function buildThreadCard(thread) {
 function openThread(thread) {
   currentThread = thread;
 
-  // Update header badge + title
   const badge = el('thread-detail-cat-badge');
   if (badge) { badge.dataset.cat = thread.category; badge.textContent = `${CAT_EMOJI[thread.category]||''} ${thread.category}`; }
   if (el('thread-detail-title-header')) el('thread-detail-title-header').textContent = thread.title;
 
-  // Clear previous content
   ['thread-post-card','thread-replies-header','thread-replies-list'].forEach(id => { const e = el(id); if (e) e.innerHTML = ''; });
 
-  // Switch view
   el('thread-list-view')?.classList.add('hidden');
   el('thread-detail-view')?.classList.remove('hidden');
 
@@ -966,19 +1160,15 @@ function renderThreadDetail(thread, replies) {
     postCard.appendChild(footerEl);
   }
 
-  // Replies header
   const hdr = el('thread-replies-header');
   if (hdr) hdr.textContent = replies.length > 0 ? `${replies.length} ${replies.length === 1 ? 'Απάντηση' : 'Απαντήσεις'}` : 'Καμία απάντηση ακόμα';
 
-  // Replies list
   const list = el('thread-replies-list');
   if (list) { list.innerHTML = ''; replies.forEach(r => list.appendChild(buildReplyCard(r))); }
 
-  // Show/hide reply bar
   const bar = el('thread-reply-bar');
   if (bar) bar.style.display = loggedIn() ? 'flex' : 'none';
 
-  // Scroll to top
   const scroll = el('thread-detail-scroll');
   if (scroll) scroll.scrollTop = 0;
 }
@@ -1067,7 +1257,6 @@ async function sendThreadReply() {
       const scroll = el('thread-detail-scroll');
       if (scroll) scroll.scrollTop = 99999;
     }
-    // Update count in header
     const hdr = el('thread-replies-header');
     if (hdr) {
       const count = el('thread-replies-list')?.querySelectorAll('.thread-reply-card').length || 0;
