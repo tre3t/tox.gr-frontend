@@ -586,20 +586,6 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   margin-left: auto;
 }
 
-.notif-bell-btn {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  color: var(--text-main);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.notif-bell-btn:hover { background: var(--hover-bg); }
-
 .notif-badge {
   position: absolute;
   top: 2px;
@@ -619,7 +605,6 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   pointer-events: none;
 }
 
-/* Badge inside dropdown menu item (mobile) */
 .notif-badge-inline {
   position: static;
   margin-left: auto;
@@ -638,20 +623,19 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
 
 .notif-dropdown {
   position: fixed;
-  top: 48px;
+  top: 50px;
   right: 8px;
   width: 320px;
   max-width: calc(100vw - 16px);
-  background: var(--card-bg);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
   z-index: 1200;
   overflow: hidden;
 }
 
-/* On desktop the tab bar is inside .chat-main, offset accordingly */
-@media (min-width: 640px) {
+@media (min-width: 769px) {
   .notif-dropdown {
     top: 52px;
     right: 16px;
@@ -668,7 +652,7 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
 .notif-dropdown-title {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text-main);
+  color: var(--text);
 }
 .notif-mark-all-btn {
   background: none;
@@ -678,8 +662,9 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   cursor: pointer;
   padding: 2px 4px;
   border-radius: 4px;
+  font-family: inherit;
 }
-.notif-mark-all-btn:hover { background: var(--hover-bg); }
+.notif-mark-all-btn:hover { background: var(--input-bg); }
 
 .notif-list {
   max-height: 360px;
@@ -697,8 +682,8 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
   position: relative;
 }
 .notif-item:last-child { border-bottom: none; }
-.notif-item:hover { background: var(--hover-bg); }
-.notif-item.notif-unread { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.notif-item:hover { background: var(--input-bg); }
+.notif-item.notif-unread { background: var(--accent-soft); }
 
 .notif-icon {
   font-size: 18px;
@@ -708,7 +693,7 @@ button{font-family:inherit;cursor:pointer}input,textarea,select{font-family:inhe
 .notif-body { flex: 1; min-width: 0; }
 .notif-msg {
   font-size: 13px;
-  color: var(--text-main);
+  color: var(--text);
   line-height: 1.4;
 }
 .notif-time {
