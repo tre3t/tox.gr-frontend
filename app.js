@@ -117,7 +117,7 @@ function wireListeners() {
   el('mob-settings-btn')?.addEventListener('click', () => { closeMobMenu(); openSettings(); });
   el('mob-theme-btn')?.addEventListener('click', () => { closeMobMenu(); toggleTheme(); });
   el('mob-auth-btn')?.addEventListener('click', () => { closeMobMenu(); loggedIn() ? logout() : openAuth(); });
-  el('mob-notif-btn')?.addEventListener('click', () => { closeMobMenu(); if(loggedIn()) toggleNotifDropdown(); else openAuth(); });
+  el('mob-notif-btn')?.addEventListener('click', e => { e.stopPropagation(); closeMobMenu(); if(loggedIn()) toggleNotifDropdown(); else openAuth(); });
   el('settings-gear-btn')?.addEventListener('click', openSettings);
 
   // Feed
